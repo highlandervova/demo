@@ -3,36 +3,19 @@ package dao;
 import data.User;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class UserDAO {
-    private static final String DRIVER = "org.postgresql.Driver";
-    private static final String URL    = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String LOGIN  = "postgres";
-    private static final String PASS   = "postgres";
-
-    private Connection getConnection() {
-        try {
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error load driver;");
-            e.printStackTrace();
-        }
-        Connection c = null;
-        try {
-            c = DriverManager.getConnection(URL, LOGIN, PASS);
-        } catch (Exception e) {
-            System.out.println("Error get connection;");
-            e.printStackTrace();
-        }
-        return c;
-    }
+public class UserDAO extends PostgreSqlDao {
 
     public User getByLogin(String login) {
         try (Connection c = getConnection(); Statement st = c.createStatement();) {
-            ResultSet rs = st.executeQuery("SELECT * FROM user WHERE login='"+login+'\'');
+//            st.executeUpdate("CREATE TABLE public.user (id int PRIMARY KEY," +
+//                    "login varchar(50) NOT NULL," +
+//                    "pass varchar(1024) NOT NULL," +
+//                    "age int," +
+//                    "phone varchar(50))");
+            ResultSet rs = st.executeQuery("SELECT * FROM public.user WHERE login=\'"+login+"\'");
             if (rs.next()) {
                 return new User(
                         rs.getInt("id"),
@@ -54,7 +37,7 @@ public class UserDAO {
         } else {
             int count = 0;
             try (Connection c = getConnection(); Statement st = c.createStatement();) {
-                count = st.executeUpdate("INSERT INTO user VALUES("+u.getId()+", '"+u.getLogin()+"', '"+u.getPass()+"', "+u.getAge()+", '"+u.getPhone()+"')");
+                count = st.executeUpdate("INSERT INTO public.user VALUES("+u.getId()+", \'"+u.getLogin()+"\', \'"+u.getPass()+"\', "+u.getAge()+", \'"+u.getPhone()+"\')");
             } catch (Exception e) {
                 System.out.println("Error save user;");
                 e.printStackTrace();

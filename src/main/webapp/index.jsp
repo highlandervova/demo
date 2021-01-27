@@ -20,5 +20,9 @@
 <form action="/demo_war_exploded/reg" method="GET">
     <input type="submit" value="Register">
 </form>
+<br/>
+<form action="/demo_war_exploded/main" method="GET">
+    <input type="submit" value="To Main Page">
+</form>
 </body>
 </html>

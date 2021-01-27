@@ -2,6 +2,11 @@ package servlet;
 
 import dao.UserDAO;
 import data.User;
+import enums.RedirectPath;
+import enums.RequestParameter;
+import enums.SessionAttribute;
+import enums.Title;
+import service.HtmlService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,26 +20,21 @@ public class AuthServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        out.println("<html><head><title>Authentication</title></head><body>");
-        out.println("<form action='/demo_war_exploded/auth' method='POST'>\n" +
-                    "    Enter Login: <input type='text' name='login'>\n" +
-                    "    Enter Pass: <input type='password' name='pass'>\n" +
-                    "    <input type='submit' value='Authenticate'>\n" +
-                    "</form>");
-        out.println("</body></html>");
+        HtmlService htmlService = new HtmlService();
+        out.println(htmlService.getAuthPage(Title.AUTHENTICATION.getValue()));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String login = req.getParameter("login");
-        String pass = req.getParameter("pass");
+        String login = req.getParameter(RequestParameter.LOGIN.getValue());
+        String pass = req.getParameter(RequestParameter.PASS.getValue());
         UserDAO uDao = new UserDAO();
-        User u = uDao.getByLogin(login);
-        if (u != null && u.getPass().equals(pass)) {
-            req.getSession().setAttribute("authenticated", u);
-            resp.sendRedirect("/demo_war_exploded/main");
+        User u = uDao.getByLogin(login); //2) do this threw the UserService
+        if (u != null && u.getPass().equals(pass)) {//1) do second check using UserService
+            req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), u);
+            resp.sendRedirect(RedirectPath.MAIN_PAGE.getValue());
         } else {
-            resp.sendRedirect("/demo_war_exploded/index.jsp");
+            resp.sendRedirect(RedirectPath.FIRST_PAGE.getValue());
         }
     }
 }
