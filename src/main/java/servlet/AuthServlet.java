@@ -7,6 +7,7 @@ import enums.RequestParameter;
 import enums.SessionAttribute;
 import enums.Title;
 import service.HtmlService;
+import service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class AuthServlet extends HttpServlet {
+    private UserService uServ = new UserService();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
@@ -29,8 +32,8 @@ public class AuthServlet extends HttpServlet {
         String login = req.getParameter(RequestParameter.LOGIN.getValue());
         String pass = req.getParameter(RequestParameter.PASS.getValue());
         UserDAO uDao = new UserDAO();
-        User u = uDao.getByLogin(login); //2) do this threw the UserService
-        if (u != null && u.getPass().equals(pass)) {//1) do second check using UserService
+        User u = uServ.getByLogin(login);
+        if (uServ.checkUserPassword(u, pass)) {
             req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), u);
             resp.sendRedirect(RedirectPath.MAIN_PAGE.getValue());
         } else {

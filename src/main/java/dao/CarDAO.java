@@ -1,7 +1,6 @@
 package dao;
 
 import data.Car;
-import data.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -26,7 +25,7 @@ public class CarDAO extends PostgreSqlDao {
             }
             return out;
         } catch (Exception e) {
-            System.out.println("Error save user;");
+            System.out.println("Error get all cars;");
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -47,15 +46,31 @@ public class CarDAO extends PostgreSqlDao {
             }
             return out;
         } catch (Exception e) {
-            System.out.println("Error save user;");
+            System.out.println("Error get cars by type;");
             e.printStackTrace();
             return Collections.emptyList();
         }
     }
 
-    //3) getById for single car
-    //4) create table car and add into it 2-3 test caes
-    //5) show your 2-3 test cars on main page with all columns
+    public Car getById(String id) {
+        try (Connection c = getConnection(); Statement st = c.createStatement();) {
+            ResultSet rs = st.executeQuery("SELECT * FROM public.car WHERE id='" + id +"'");
+            if (rs.next()) {
+                return new Car(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("type"),
+                        rs.getInt("price"),
+                        rs.getString("description"),
+                        rs.getString("picture"));
+            }
+            return null;
+        } catch (Exception e) {
+            System.out.println("Error get car by id;");
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public boolean add(Car car) {
         int count = 0;
