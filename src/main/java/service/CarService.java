@@ -10,6 +10,7 @@ import static util.StringUtil.isNotEmpty;
 
 public class CarService {
     CarDAO carDAO = new CarDAO();
+    OptionService optionService = new OptionService();
 
     public boolean checkAddCarParameters(String name, String desc, String picture, Integer type, Integer price) {
         return isNotEmpty(name) && isNotEmpty(desc) && isNotEmpty(picture) &&
@@ -23,10 +24,16 @@ public class CarService {
     }
 
     public Collection<Car> getAllCars() {
-        return carDAO.getAllCars();
+        Collection<Car> out = carDAO.getAllCars();
+        for (Car c : out) {
+            c.setOptions(optionService.getOptionsByCarId(c.getId()));
+        }
+        return out;
     }
 
     public Car getById(String id) {
-        return carDAO.getById(id);
+        Car out = carDAO.getById(id);
+        out.setOptions(optionService.getOptionsByCarId(out.getId()));
+        return out;
     }
 }

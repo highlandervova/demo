@@ -1,6 +1,7 @@
 package service;
 
 import data.Car;
+import data.Option;
 import enums.CarType;
 import enums.RedirectPath;
 
@@ -40,6 +41,13 @@ public class HtmlService {
             out.append("'><img style='width: 100px;' src='");
             out.append(c.getPicture());
             out.append("' alt='No Picture'/></a>");
+            out.append("</td><td>");
+            out.append("<h1>Options:</h1>");
+            for (Option o : c.getOptions()) {
+                out.append(o.toString());
+                out.append(" ");
+                //todo: 26: options in table;
+            }
             out.append("</td></tr>");
         }
         out.append("</table>");
@@ -175,6 +183,14 @@ public class HtmlService {
         out.append("<img src='");
         out.append(c.getPicture());
         out.append("' alt='No Picture'/>");
+        out.append("</td></tr>");
+        out.append("<tr><td>");
+        out.append("Options");
+        out.append("</td><td>");
+        for (Option o : c.getOptions()) {
+            out.append(o.toString());
+            out.append("</br>");
+        }
         out.append("</td></tr>");
         out.append("</table>");
         out.append("<form action='");

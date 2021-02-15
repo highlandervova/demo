@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -11,6 +12,8 @@ public class Car implements Serializable {
     private int    price;
     private String description;
     private String picture;
+
+    private Collection<Option> options;
 
     public Car() {
 //        UUID.randomUUID().toString();
@@ -71,6 +74,14 @@ public class Car implements Serializable {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Collection<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(Collection<Option> options) {
+        this.options = options;
     }
 
     @Override

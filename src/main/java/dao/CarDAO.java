@@ -82,4 +82,6 @@ public class CarDAO extends PostgreSqlDao {
         }
         return count > 0;
     }
+
+    //todo: 26 sql which by carId will return options of some car;
 }
