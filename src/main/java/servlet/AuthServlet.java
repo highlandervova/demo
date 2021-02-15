@@ -6,6 +6,7 @@ import enums.RedirectPath;
 import enums.RequestParameter;
 import enums.SessionAttribute;
 import enums.Title;
+import hibernate.HibernateUtil;
 import service.HtmlService;
 import service.UserService;
 

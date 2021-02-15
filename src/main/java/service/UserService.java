@@ -1,12 +1,13 @@
 package service;
 
+import dao.HibernateUserDao;
 import dao.UserDAO;
 import data.User;
 
 import java.util.Random;
 
 public class UserService {
-    private UserDAO uDao = new UserDAO();
+    private HibernateUserDao uDao = new HibernateUserDao();
 
     public User addNewUser(String login, String pass) {
         User u = new User(new Random().nextInt(), login, pass, 0, null);

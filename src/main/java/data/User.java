@@ -1,9 +1,17 @@
 package data;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name = "public.user")
 public class User implements Serializable {
+    @Id
+    @Column(name = "id")
     private int id;
     private String login;
     private String pass;
