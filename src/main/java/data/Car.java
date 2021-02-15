@@ -13,7 +13,7 @@ public class Car implements Serializable {
     private String picture;
 
     public Car() {
-//        UUID.randomUUID().toString();
+        this.id=UUID.randomUUID().toString();
     }
 
     public Car(String id, String name, int type, int price, String description, String picture) {

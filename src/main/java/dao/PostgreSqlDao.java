@@ -7,7 +7,7 @@ public class PostgreSqlDao {
     private static final String DRIVER = "org.postgresql.Driver";
     private static final String URL    = "jdbc:postgresql://localhost:5432/demo";
     private static final String LOGIN  = "postgres";
-    private static final String PASS   = "postgres";
+    private static final String PASS   = "words76";
 
     protected Connection getConnection() {
         try {

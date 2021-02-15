@@ -26,7 +26,7 @@ public class CarDAO extends PostgreSqlDao {
             }
             return out;
         } catch (Exception e) {
-            System.out.println("Error save user;");
+            System.out.println("Error during saving car;");
             e.printStackTrace();
             return Collections.emptyList();
         }
@@ -52,6 +52,40 @@ public class CarDAO extends PostgreSqlDao {
             return Collections.emptyList();
         }
     }
+
+    public Car getById(int id){
+        try (Connection c = getConnection(); Statement st = c.createStatement();) {
+            ResultSet rs = st.executeQuery("SELECT * FROM public.car WHERE id=\'" + id + "\'");
+            if (rs.next()) {
+                return new Car(
+                        rs.getString("id"),
+                        rs.getString("name"),
+                        rs.getInt("type"),
+                        rs.getInt("price"),
+                        rs.getString("description"),
+                        rs.getString("picture"));
+            } else return null;
+            } catch (Exception e){
+            System.out.println("Error getting Car from DB;");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean createCar() {
+
+        try (Connection c = getConnection(); Statement st = c.createStatement();) {
+            st.executeUpdate("CREATE TABLE public.car (id varchar(64) PRIMARY KEY," +
+                    "name varchar(50) NOT NULL," +
+                    "type int," +
+                    "price int," +
+                    "description varchar(550))" +
+                    "picture varchar(250)");
+        } catch (Exception e){
+            System.err.println("error creating car table");
+            e.printStackTrace();
+        }
+            return false;
+        }
 
     //3) getById for single car
     //4) create table car and add into it 2-3 test caes

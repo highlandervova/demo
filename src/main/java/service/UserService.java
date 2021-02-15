@@ -15,4 +15,14 @@ public class UserService {
                 null);
         return new UserDAO().add(u) ? u : null;
     }
+
+    public User getUserByLogin(String login) {
+
+        return new UserDAO().getByLogin(login);
+    }
+
+    public boolean checkUserPass(User user, String pass) {
+
+        return user.getPass().equals(pass);
+    }
 }
