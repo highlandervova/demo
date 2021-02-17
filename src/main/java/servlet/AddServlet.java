@@ -1,6 +1,5 @@
 package servlet;
 
-import dao.CarDAO;
 import enums.RedirectPath;
 import enums.RequestParameter;
 import enums.Title;

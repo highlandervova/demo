@@ -1,12 +1,10 @@
 package servlet;
 
-import dao.UserDAO;
 import data.User;
 import enums.RedirectPath;
 import enums.RequestParameter;
 import enums.SessionAttribute;
 import enums.Title;
-import hibernate.HibernateUtil;
 import service.HtmlService;
 import service.UserService;
 
@@ -32,7 +30,6 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter(RequestParameter.LOGIN.getValue());
         String pass = req.getParameter(RequestParameter.PASS.getValue());
-        UserDAO uDao = new UserDAO();
         User u = uServ.getByLogin(login);
         if (uServ.checkUserPassword(u, pass)) {
             req.getSession().setAttribute(SessionAttribute.AUTHENTICATED.getValue(), u);

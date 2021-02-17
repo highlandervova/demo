@@ -15,7 +15,7 @@ public class OptionService {
         Collection<String> optionIds = carOptionDAO.getByCarId(carId);
         Collection<Option> out = new ArrayList<>();
         for (String optionId : optionIds) {
-            out.add(optionDAO.getById(optionId));
+            out.add(optionDAO.getById(optionId));//todo: 27 OptionCache
         }
         return out;
     }

@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 public class CarOptionDAO extends PostgreSqlDao {
+    //todo: 27 add interface and hibernate support
     public Collection<String> getByCarId(String carId) {
         try (Connection c = getConnection(); Statement st = c.createStatement();) {
             ResultSet rs = st.executeQuery("SELECT option_id FROM public.car_option WHERE car_id='" + carId + "'");

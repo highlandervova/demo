@@ -1,6 +1,8 @@
 package service;
 
-import dao.CarDAO;
+import cache.CarCache;
+import dao.CarDao;
+import dao.HibernateCarDao;
 import data.Car;
 
 import java.util.Collection;
@@ -9,7 +11,7 @@ import java.util.UUID;
 import static util.StringUtil.isNotEmpty;
 
 public class CarService {
-    CarDAO carDAO = new CarDAO();
+    CarDao carDAO = new HibernateCarDao();
     OptionService optionService = new OptionService();
 
     public boolean checkAddCarParameters(String name, String desc, String picture, Integer type, Integer price) {
@@ -24,7 +26,7 @@ public class CarService {
     }
 
     public Collection<Car> getAllCars() {
-        Collection<Car> out = carDAO.getAllCars();
+        Collection<Car> out = CarCache.getAllCars();
         for (Car c : out) {
             c.setOptions(optionService.getOptionsByCarId(c.getId()));
         }
@@ -32,7 +34,7 @@ public class CarService {
     }
 
     public Car getById(String id) {
-        Car out = carDAO.getById(id);
+        Car out = CarCache.getById(id);
         out.setOptions(optionService.getOptionsByCarId(out.getId()));
         return out;
     }

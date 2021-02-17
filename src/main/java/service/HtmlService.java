@@ -43,6 +43,12 @@ public class HtmlService {
             out.append("' alt='No Picture'/></a>");
             out.append("</td><td>");
             out.append("<h1>Options:</h1>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append("' method='GET'>\n");
+            out.append("    <input type='hidden' name='carId' value='"+c.getId()+"'>");
+            out.append("    <input type='submit' value='Edit options'>\n");
+            out.append("</form>");
             for (Option o : c.getOptions()) {
                 out.append(o.toString());
                 out.append(" ");
@@ -61,6 +67,35 @@ public class HtmlService {
         out.append("' method='GET'>\n");
         out.append("    <input type='submit' value='To First Page'>\n");
         out.append("</form>");
+        out.append(getEnd());
+        return out.toString();
+    }
+
+    public String getOptionPage(String title, Collection<Option> availableOptions, Collection<Option> extendedOptions, String carId) {
+        StringBuilder out = new StringBuilder();
+        out.append(getHead(title));
+        out.append("<h1>Available Options:</h1>");
+        for (Option o : availableOptions) {
+            out.append("<h2>" + o.getName() + "</h2>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append("' method='POST'>\n");
+            out.append("    <input type='hidden' name='carId' value='" + carId + "'>");
+            out.append("    <input type='hidden' name='optionId' value='" + o.getId() + "'>");
+            out.append("    <input type='submit' value='Remove'>\n");
+            out.append("</form>");
+        }
+        out.append("<h1>Extended Options:");
+        for (Option o : extendedOptions) {
+            out.append("<h2>" + o.getName() + "</h2>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append("' method='POST'>\n");
+            out.append("    <input type='hidden' name='carId' value='" + carId + "'>");
+            out.append("    <input type='hidden' name='optionId' value='" + o.getId() + "'>");
+            out.append("    <input type='submit' value='Add'>\n");
+            out.append("</form>");
+        }
         out.append(getEnd());
         return out.toString();
     }

@@ -1,11 +1,17 @@
 package data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.UUID;
 
+@Entity
+@Table(name = "car")
 public class Car implements Serializable {
+    @Id
     private String id;
     private String name;
     private int    type;
@@ -13,10 +19,10 @@ public class Car implements Serializable {
     private String description;
     private String picture;
 
+    @Transient
     private Collection<Option> options;
 
     public Car() {
-//        UUID.randomUUID().toString();
     }
 
     public Car(String id, String name, int type, int price, String description, String picture) {

@@ -11,7 +11,8 @@ public enum RequestParameter {
     DESCRIPTION("description"),
     TYPE("type"),
     NAME("name"),
-    ID("id");
+    ID("id"),
+    CAR_ID("carId");
 
     private RequestParameter(String value) {
         this.value = value;

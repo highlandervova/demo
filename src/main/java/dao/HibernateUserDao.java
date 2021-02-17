@@ -4,7 +4,9 @@ import data.User;
 import hibernate.HibernateUtil;
 import org.hibernate.Session;
 
-public class HibernateUserDao {
+public class HibernateUserDao implements UserDao {
+
+    @Override
     public User getByLogin(String login) {
         Session s = HibernateUtil.getSession();
         s.beginTransaction();
@@ -15,6 +17,7 @@ public class HibernateUserDao {
         return u;
     }
 
+    @Override
     public boolean add(User u) {
         Session s = HibernateUtil.getSession();
         s.beginTransaction();

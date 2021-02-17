@@ -7,7 +7,8 @@ public enum RedirectPath {
     FIRST_PAGE("/demo_war_exploded/index.jsp"),
     REG_PAGE("/demo_war_exploded/reg"),
     ADD_PAGE("/demo_war_exploded/add"),
-    DETAIL_PAGE("/demo_war_exploded/detail");
+    DETAIL_PAGE("/demo_war_exploded/detail"),
+    OPTION_PAGE("/demo_war_exploded/option");
 
     private RedirectPath(String value) {
         this.value = value;
