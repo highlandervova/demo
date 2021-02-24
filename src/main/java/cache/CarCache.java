@@ -34,7 +34,8 @@ public class CarCache {
         Collection<Car> cars = carDao.getAllCars();
         data = new ConcurrentHashMap<>();
         for (Car c : cars) {
-            data.put(c.getId(), c);
+            Car copy = Car.copy(c);
+            data.put(copy.getId(), copy);
         }
     }
 }

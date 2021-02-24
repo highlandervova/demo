@@ -1,6 +1,7 @@
 package servlet;
 
 import enums.RequestParameter;
+import enums.SpringBeanName;
 import enums.Title;
 import service.CarService;
 import service.HtmlService;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static spring.SpringContextHolder.getBean;
+
 public class DetailServlet extends HttpServlet {
-    HtmlService htmlService = new HtmlService();
+    HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
     CarService  carService  = new CarService();
 
     @Override

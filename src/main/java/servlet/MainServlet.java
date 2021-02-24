@@ -2,6 +2,7 @@ package servlet;
 
 import enums.RedirectPath;
 import enums.SessionAttribute;
+import enums.SpringBeanName;
 import enums.Title;
 import service.CarService;
 import service.HtmlService;
@@ -12,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
+
+import static spring.SpringContextHolder.getBean;
 
 public class MainServlet extends HttpServlet {
-    HtmlService htmlService = new HtmlService();
+    HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
     CarService carService   = new CarService();
 
     @Override

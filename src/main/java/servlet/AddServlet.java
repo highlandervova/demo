@@ -2,6 +2,7 @@ package servlet;
 
 import enums.RedirectPath;
 import enums.RequestParameter;
+import enums.SpringBeanName;
 import enums.Title;
 import service.CarService;
 import service.HtmlService;
@@ -13,9 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static spring.SpringContextHolder.getBean;
+
 public class AddServlet extends HttpServlet {
     CarService carService = new CarService();
-    HtmlService htmlService = new HtmlService();
+    HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -3,6 +3,7 @@ package servlet;
 import data.Car;
 import data.Option;
 import enums.RequestParameter;
+import enums.SpringBeanName;
 import enums.Title;
 import service.CarService;
 import service.HtmlService;
@@ -16,8 +17,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
+import static spring.SpringContextHolder.getBean;
+
 public class OptionServlet extends HttpServlet {
-    private HtmlService   htmlService   = new HtmlService();
+    private HtmlService   htmlService   = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
     private OptionService optionService = new OptionService();
     private CarService    carService    = new CarService();
 

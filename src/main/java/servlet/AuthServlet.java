@@ -1,12 +1,10 @@
 package servlet;
 
 import data.User;
-import enums.RedirectPath;
-import enums.RequestParameter;
-import enums.SessionAttribute;
-import enums.Title;
+import enums.*;
 import service.HtmlService;
 import service.UserService;
+import spring.SpringContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,14 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import static spring.SpringContextHolder.getBean;
+
 public class AuthServlet extends HttpServlet {
-    private UserService uServ = new UserService();
+    private UserService uServ = (UserService) getBean(SpringBeanName.USER_SERVICE.getName());
+    private HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-        HtmlService htmlService = new HtmlService();
         out.println(htmlService.getAuthPage(Title.AUTHENTICATION.getValue()));
     }
 

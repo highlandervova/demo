@@ -5,6 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -113,5 +114,23 @@ public class Car implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, type, price, description, picture);
+    }
+
+    public static Car copy(Car c) {
+        Car out = new Car();
+        out.setId(c.getId());
+        out.setName(c.getName());
+        out.setDescription(c.getDescription());
+        out.setPicture(c.getPicture());
+        out.setType(c.getType());
+        out.setPrice(c.getPrice());
+        Collection<Option> opts = new ArrayList<>();
+        if (c.getOptions() != null) {
+            for (Option o : c.getOptions()) {
+                opts.add(Option.copy(o));
+            }
+            out.setOptions(opts);
+        }
+        return out;
     }
 }
