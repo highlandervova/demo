@@ -86,4 +86,12 @@ public class Option implements Serializable {
     public int hashCode() {
         return Objects.hash(id, name, color);
     }
+
+    public static Option copy(Option o) {
+        Option out = new Option();
+        out.setId(o.getId());
+        out.setName(o.getName());
+        out.setColor(o.getColor());
+        return out;
+    }
 }

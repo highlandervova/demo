@@ -1,13 +1,9 @@
 package servlet;
 
 import data.Car;
-import data.CarOption;
 import data.Option;
-import enums.RedirectPath;
 import enums.RequestParameter;
-import enums.SessionAttribute;
 import enums.Title;
-
 import service.CarService;
 import service.HtmlService;
 import service.OptionService;
@@ -23,7 +19,6 @@ import java.util.Collection;
 public class OptionServlet extends HttpServlet {
     private HtmlService   htmlService   = new HtmlService();
     private OptionService optionService = new OptionService();
-
     private CarService    carService    = new CarService();
 
     @Override
@@ -31,45 +26,14 @@ public class OptionServlet extends HttpServlet {
         String carId = req.getParameter(RequestParameter.CAR_ID.getValue());
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
-       // Collection<Option> allOptions = optionService.getOptionsByCarId(carId);
-
-        Collection<Option> addOptions = optionService.getOptionsByCarIdAdd(carId);
-
+        Collection<Option> allOptions = optionService.getOptionsByCarId(carId);
         Car c = carService.getById(carId);
-             //todo: 27 exclude redundant options;
-        out.println(htmlService.getOptionPage(Title.OPTIONS.getValue(), c.getOptions(), addOptions, carId));
-
+        //todo: 27 exclude redundant options;
+        out.println(htmlService.getOptionPage(Title.OPTIONS.getValue(), allOptions, c.getOptions(), carId));
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String carId = req.getParameter(RequestParameter.CAR_ID.getValue());
-        String optionId = req.getParameter(RequestParameter.OPTION_ID.getValue());
-
-
-       if(   req.getParameter(RequestParameter.ADD.getValue()) != null){
-           CarOption co = new OptionService().addNewOptionCar(carId, optionId );
-           if (co != null) {
-
-               resp.sendRedirect(RedirectPath.MAIN_PAGE.getValue());
-           } else {
-               resp.sendRedirect(RedirectPath.FIRST_PAGE.getValue());
-           }
-        }
-
-
-        if(   req.getParameter(RequestParameter.REMOVE.getValue()) != null){
-           boolean boolTrue = new OptionService().removeOptionCar(carId, optionId );
-            if (  boolTrue )
-             {
-
-                resp.sendRedirect(RedirectPath.MAIN_PAGE.getValue());
-            } else {
-                resp.sendRedirect(RedirectPath.FIRST_PAGE.getValue());
-            }
-        }
-
-
         //todo: 27 implement doPost
     }
 }
