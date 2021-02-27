@@ -13,7 +13,7 @@ public class HtmlService {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
         out.append("<h1>Car Dealer Shop</h1>");
-        out.append("<table><tr><th>NAME</th><th>TYPE</th><th>PRICE</th><th>DESCRIPTION</th><th>PICTURE</th></tr>");
+        out.append("<table><tr><th>NAME</th><th>TYPE</th><th>PRICE</th><th>DESCRIPTION</th><th>PICTURE</th><th>OPTIONS</th></tr>");
         for (Car c : cars) {
             out.append("<tr><td>");
             out.append(c.getName());
@@ -42,7 +42,7 @@ public class HtmlService {
             out.append(c.getPicture());
             out.append("' alt='No Picture'/></a>");
             out.append("</td><td>");
-            out.append("<h1>Options:</h1>");
+        //    out.append("<h1>Options:</h1>");
             out.append("<form action='");
             out.append(RedirectPath.OPTION_PAGE.getValue());
             out.append("' method='GET'>\n");
@@ -51,7 +51,7 @@ public class HtmlService {
             out.append("</form>");
             for (Option o : c.getOptions()) {
                 out.append(o.toString());
-                out.append(" ");
+                out.append("<br/>");
                 //todo: 26: options in table;
             }
             out.append("</td></tr>");
@@ -71,21 +71,30 @@ public class HtmlService {
         return out.toString();
     }
 
-    public String getOptionPage(String title, Collection<Option> availableOptions, Collection<Option> extendedOptions, String carId) {
+
+    public String getOptionPage
+            (String title,
+             Collection<Option> availableOptions,
+             Collection<Option> extendedOptions, String carId)
+    {
+
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
+
         out.append("<h1>Available Options:</h1>");
-        for (Option o : availableOptions) {
-            out.append("<h2>" + o.getName() + "</h2>");
+
+        for (Option r : availableOptions) {
+            out.append("<h2>" + r.getName() + "</h2>");
             out.append("<form action='");
-            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append(RedirectPath.OPTION_PAGE.getValue() );
             out.append("' method='POST'>\n");
-            out.append("    <input type='hidden' name='carId' value='" + carId + "'>");
-            out.append("    <input type='hidden' name='optionId' value='" + o.getId() + "'>");
-            out.append("    <input type='submit' value='Remove'>\n");
+            out.append("    <input type='hidden' name='carId'    value='" + carId + "'>");
+            out.append("    <input type='hidden' name='optionId' value='" + r.getId() + "'>");
+            out.append("    <input type='submit' name='Remove'   value='Remove'>\n");
             out.append("</form>");
         }
         out.append("<h1>Extended Options:");
+
         for (Option o : extendedOptions) {
             out.append("<h2>" + o.getName() + "</h2>");
             out.append("<form action='");
@@ -93,9 +102,19 @@ public class HtmlService {
             out.append("' method='POST'>\n");
             out.append("    <input type='hidden' name='carId' value='" + carId + "'>");
             out.append("    <input type='hidden' name='optionId' value='" + o.getId() + "'>");
-            out.append("    <input type='submit' value='Add'>\n");
+            out.append("    <input type='submit' name='AddOptionalForCar' value='Add'>\n");
             out.append("</form>");
         }
+        out.append("<br/>");
+
+        out.append("<br/>");
+        out.append("<br/>");
+        out.append("<form action='");
+        out.append(RedirectPath.MAIN_PAGE.getValue());
+        out.append("' method='GET'>\n");
+        out.append("    <input type='submit' value='To Main Page'>\n");
+        out.append("</form>");
+        out.append(getEnd());
         out.append(getEnd());
         return out.toString();
     }

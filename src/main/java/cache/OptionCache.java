@@ -2,33 +2,28 @@ package cache;
 
 import dao.CarDao;
 import dao.HibernateCarDao;
+import dao.HibernateOptionDao;
+import dao.OptionDao;
 import data.Car;
 import data.Option;
 
 import java.time.LocalDateTime;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class CarCache {
-    private static Map<String, Car> data = new ConcurrentHashMap<>();
-    private static Map<String, Option> dataOption = new ConcurrentHashMap<>();
+public class OptionCache {
+
+    private static Map<String, Option> data = new ConcurrentHashMap<>();
     private static LocalDateTime time = null;
 
-    public static Car getById(String id) {
+       public static Option getById(String id) {
         if (!hasTime()) updateCache();
         return data.get(id);
     }
 
-    public static Option getByIdOption(String id) {
-        if (!hasTime()) updateCache();
-        return dataOption.get(id);
-    }
 
-    public static Collection<Car> getAllCars() {
-        if (!hasTime()) updateCache();
-        return data.values();
-    }
 
     private static boolean hasTime() {
         if (time == null) {
@@ -38,11 +33,12 @@ public class CarCache {
         return time.isAfter(before);
     }
     private static void updateCache() {
-        CarDao carDao = new HibernateCarDao();
-        Collection<Car> cars = carDao.getAllCars();
+        OptionDao optionDao = new HibernateOptionDao();
+        Collection<Option> options = optionDao.getAllOptions();
         data = new ConcurrentHashMap<>();
-        for (Car c : cars) {
-            data.put(c.getId(), c);
+        for (Option o : options) {
+            data.put(o.getId(), o);
         }
     }
+
 }

@@ -1,17 +1,19 @@
 package data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "car")
+@Embeddable
 public class Car implements Serializable {
-    @Id
+
+  //  @EmbeddedId
+  @Id
+  //@JoinTable(name="public.car_option",joinColumns = @JoinColumn(name = "car_id"),
+   //       inverseJoinColumns =  @JoinColumn(name = "id"))
     private String id;
     private String name;
     private int    type;
@@ -20,6 +22,10 @@ public class Car implements Serializable {
     private String picture;
 
     @Transient
+//
+//    @JoinTable(name="public.car_option",joinColumns = @JoinColumn(name = "car_id"),
+//            inverseJoinColumns =  @JoinColumn(name = "id"))
+   // @ManyToMany (mappedBy="CarOption", cascade=CascadeType.ALL ) //, orphanRemoval=true )
     private Collection<Option> options;
 
     public Car() {
