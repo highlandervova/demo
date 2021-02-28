@@ -19,11 +19,17 @@ public class HibernateUserDao implements UserDao {
 
     @Override
     public boolean add(User u) {
-        Session s = HibernateUtil.getSession();
-        s.beginTransaction();
-        s.save(u);
-        s.getTransaction().commit();
-        s.close();
-        return true;
+        if (getByLogin(u.getLogin()) != null) {
+            return false;
+        } else {
+
+
+            Session s = HibernateUtil.getSession();
+            s.beginTransaction();
+            s.save(u);
+            s.getTransaction().commit();
+            s.close();
+            return true;
+        }
     }
 }

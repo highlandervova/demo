@@ -7,6 +7,11 @@ import enums.RedirectPath;
 
 import java.util.Collection;
 
+
+
+
+
+
 public class HtmlService {
 
     public String getMainPage(String title, Collection<Car> cars) {
@@ -18,6 +23,13 @@ public class HtmlService {
             out.append("<tr><td>");
             out.append(c.getName());
             out.append("</td><td>");
+            out.append("<a href='");
+            out.append(RedirectPath.MAIN_PAGE.getValue());
+            //htmlService.getMainPage(Title.MAIN_PAGE.getValue(), carService.getAllCars()
+            out.append("?type=");
+            out.append(c.getType());
+            out.append("'>");
+
             switch (c.getType()) {
                 case 1:
                     out.append(CarType.SEDAN.name());
@@ -29,6 +41,19 @@ public class HtmlService {
                     out.append(CarType.CROSSOVER.name());
             }
             out.append("</td><td><h2>");
+
+//            out.append("</td><td>");
+//            switch (c.getType()) {
+//                case 1:
+//                    out.append(CarType.SEDAN.name());
+//                    break;
+//                case 2:
+//                    out.append(CarType.HATCHBACK.name());
+//                    break;
+//                case 3:
+//                    out.append(CarType.CROSSOVER.name());
+//            }
+//            out.append("</td><td><h2>");
             out.append(c.getPrice());
             out.append("</h2> <h4>USD</h4>");
             out.append("</td><td>");
@@ -127,8 +152,15 @@ public class HtmlService {
         out.append("' method='POST'>\n");
         out.append("    Enter Car Name: <input type='text' name='name'></br>\n");
         out.append("    Enter Description: <input type='text' name='description'></br>\n");
-        out.append("    Enter Type: <input type='number' name='type'></br>\n");
-        out.append("    Enter Price: <input type='number' name='price'></br>\n");
+     //   out.append("    Enter Type: <input type='number' name='type'></br>\n");
+        out.append("    Select type: <select name='type' >");
+        out.append("         <option value=1> SEDAN </option>");
+        out.append("         <option value=2> HATCHBACK</option>");
+        out.append("         <option value=3> CROSSOVER </option> ");
+        out.append("         </select>");
+
+        out.append("    Enter Price: <input type='number'  name='price'></br>");
+
         out.append("    Enter Picture link: <input type='text' name='picture'></br>\n");
         out.append("    <input type='submit' value='Add Car'>\n");
         out.append("</form>");

@@ -17,8 +17,14 @@ import java.io.PrintWriter;
 import static spring.SpringContextHolder.getBean;
 
 public class AddServlet extends HttpServlet {
+
+
     CarService carService = new CarService();
+    //CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
+
+
     HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
+   // HtmlService htmlService = new HtmlService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

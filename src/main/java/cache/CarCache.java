@@ -4,11 +4,14 @@ import dao.CarDao;
 import dao.HibernateCarDao;
 import data.Car;
 import data.Option;
+import enums.SpringBeanName;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static spring.SpringContextHolder.getBean;
 
 public class CarCache {
     private static Map<String, Car> data = new ConcurrentHashMap<>();
@@ -38,7 +41,8 @@ public class CarCache {
         return time.isAfter(before);
     }
     private static void updateCache() {
-        CarDao carDao = new HibernateCarDao();
+        //CarDao carDao = new HibernateCarDao();
+       CarDao carDao = (CarDao) getBean(SpringBeanName.CARDAO.getName());
         Collection<Car> cars = carDao.getAllCars();
         data = new ConcurrentHashMap<>();
         for (Car c : cars) {

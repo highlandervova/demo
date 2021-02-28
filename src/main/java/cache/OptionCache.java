@@ -1,17 +1,20 @@
 package cache;
 
-import dao.CarDao;
-import dao.HibernateCarDao;
+//import dao.CarDao;
+//import dao.HibernateCarDao;
 import dao.HibernateOptionDao;
 import dao.OptionDao;
-import data.Car;
+
 import data.Option;
+import enums.SpringBeanName;
 
 import java.time.LocalDateTime;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static spring.SpringContextHolder.getBean;
 
 public class OptionCache {
 
@@ -34,6 +37,7 @@ public class OptionCache {
     }
     private static void updateCache() {
         OptionDao optionDao = new HibernateOptionDao();
+        //OptionDao optionDao = (OptionDao) getBean(SpringBeanName.OPTION_DAO.getName());
         Collection<Option> options = optionDao.getAllOptions();
         data = new ConcurrentHashMap<>();
         for (Option o : options) {
