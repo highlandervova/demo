@@ -31,9 +31,9 @@ public class CarService {
 
     public Collection<Car> getAllCars() {
         Collection<Car> out = carDAO.getAllCars();
-//        for (Car c : out) {
-//            c.setOptions(optionService.getOptionsByCarId(c.getId()));
-//        }
+        for (Car c : out) {
+            c.setOptions(optionService.getOptionsByCarId(c.getId()));
+        }
         return out;
     }
 
