@@ -8,6 +8,7 @@ import enums.Title;
 import service.CarService;
 import service.HtmlService;
 import service.OptionService;
+import spring.SpringContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,7 @@ import static spring.SpringContextHolder.getBean;
 public class OptionServlet extends HttpServlet {
     private HtmlService   htmlService   = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
     private OptionService optionService = new OptionService();
-    private CarService    carService    = new CarService();
+    private CarService    carService    = (CarService) SpringContextHolder.getBean("carService");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

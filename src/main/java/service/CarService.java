@@ -4,15 +4,19 @@ import cache.CarCache;
 import dao.CarDao;
 import dao.HibernateCarDao;
 import data.Car;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.UUID;
 
 import static util.StringUtil.isNotEmpty;
 
+@Service
 public class CarService {
-    CarDao carDAO = new HibernateCarDao();
-    OptionService optionService = new OptionService();
+    @Autowired
+    private CarDao carDAO;
+    private OptionService optionService = new OptionService();
 
     public boolean checkAddCarParameters(String name, String desc, String picture, Integer type, Integer price) {
         return isNotEmpty(name) && isNotEmpty(desc) && isNotEmpty(picture) &&
@@ -26,10 +30,10 @@ public class CarService {
     }
 
     public Collection<Car> getAllCars() {
-        Collection<Car> out = CarCache.getAllCars();
-        for (Car c : out) {
-            c.setOptions(optionService.getOptionsByCarId(c.getId()));
-        }
+        Collection<Car> out = carDAO.getAllCars();
+//        for (Car c : out) {
+//            c.setOptions(optionService.getOptionsByCarId(c.getId()));
+//        }
         return out;
     }
 

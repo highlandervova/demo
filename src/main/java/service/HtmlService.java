@@ -4,9 +4,11 @@ import data.Car;
 import data.Option;
 import enums.CarType;
 import enums.RedirectPath;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
+@Service
 public class HtmlService {
 
     public String getMainPage(String title, Collection<Car> cars) {

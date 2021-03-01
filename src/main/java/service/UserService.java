@@ -3,9 +3,11 @@ package service;
 import dao.HibernateUserDao;
 import dao.UserDao;
 import data.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
+@Service
 public class UserService {
     private UserDao uDao = new HibernateUserDao();
 

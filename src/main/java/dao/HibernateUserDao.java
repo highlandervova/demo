@@ -3,7 +3,9 @@ package dao;
 import data.User;
 import hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HibernateUserDao implements UserDao {
 
     @Override

@@ -2,7 +2,9 @@ package service;
 
 import dao.HibernateUserDao;
 import dao.UserDao;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ValidationService {
     private UserDao uDao = new HibernateUserDao();
 

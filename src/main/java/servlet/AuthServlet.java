@@ -4,7 +4,6 @@ import data.User;
 import enums.*;
 import service.HtmlService;
 import service.UserService;
-import spring.SpringContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -3,9 +3,11 @@ package dao;
 import data.Car;
 import hibernate.HibernateUtil;
 import org.hibernate.Session;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
+@Component
 public class HibernateCarDao implements CarDao{
     @Override
     public Collection<Car> getAllCars() {
