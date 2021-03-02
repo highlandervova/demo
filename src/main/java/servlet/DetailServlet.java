@@ -17,7 +17,11 @@ import static spring.SpringContextHolder.getBean;
 
 public class DetailServlet extends HttpServlet {
     HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
-    CarService  carService  = new CarService();
+   //HtmlService htmlService = new HtmlService();
+
+
+   CarService  carService  = new CarService();
+   // CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

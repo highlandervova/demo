@@ -26,7 +26,7 @@ public class UserDaoImpl extends PostgreSqlDao implements UserDao {
                         rs.getString("phone"));
             } else return null;
         } catch (Exception e) {
-            System.out.println("Error save user;");
+            System.out.println("Error login user;");
             e.printStackTrace();
             return null;
         }

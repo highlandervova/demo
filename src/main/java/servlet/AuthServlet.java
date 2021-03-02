@@ -1,5 +1,7 @@
 package servlet;
 
+import dao.UserDao;
+import dao.UserDaoImpl;
 import data.User;
 import enums.*;
 import service.HtmlService;
@@ -16,8 +18,12 @@ import java.io.PrintWriter;
 import static spring.SpringContextHolder.getBean;
 
 public class AuthServlet extends HttpServlet {
+    //UserService uServ = new UserService();
     private UserService uServ = (UserService) getBean(SpringBeanName.USER_SERVICE.getName());
+
+
     private HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());
+    //HtmlService htmlService = new HtmlService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
