@@ -4,16 +4,8 @@ import data.Car;
 import data.Option;
 import enums.CarType;
 import enums.RedirectPath;
-
 import java.util.Collection;
-
-
-
-
-
-
 public class HtmlService {
-
     public String getMainPage(String title, Collection<Car> cars) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
@@ -25,11 +17,9 @@ public class HtmlService {
             out.append("</td><td>");
             out.append("<a href='");
             out.append(RedirectPath.MAIN_PAGE.getValue());
-            //htmlService.getMainPage(Title.MAIN_PAGE.getValue(), carService.getAllCars()
             out.append("?type=");
             out.append(c.getType());
             out.append("'>");
-
             switch (c.getType()) {
                 case 1:
                     out.append(CarType.SEDAN.name());
@@ -41,19 +31,6 @@ public class HtmlService {
                     out.append(CarType.CROSSOVER.name());
             }
             out.append("</td><td><h2>");
-
-//            out.append("</td><td>");
-//            switch (c.getType()) {
-//                case 1:
-//                    out.append(CarType.SEDAN.name());
-//                    break;
-//                case 2:
-//                    out.append(CarType.HATCHBACK.name());
-//                    break;
-//                case 3:
-//                    out.append(CarType.CROSSOVER.name());
-//            }
-//            out.append("</td><td><h2>");
             out.append(c.getPrice());
             out.append("</h2> <h4>USD</h4>");
             out.append("</td><td>");
@@ -67,7 +44,6 @@ public class HtmlService {
             out.append(c.getPicture());
             out.append("' alt='No Picture'/></a>");
             out.append("</td><td>");
-        //    out.append("<h1>Options:</h1>");
             out.append("<form action='");
             out.append(RedirectPath.OPTION_PAGE.getValue());
             out.append("' method='GET'>\n");
@@ -95,19 +71,14 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
-
     public String getOptionPage
             (String title,
              Collection<Option> availableOptions,
              Collection<Option> extendedOptions, String carId)
     {
-
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
-
         out.append("<h1>Available Options:</h1>");
-
         for (Option r : availableOptions) {
             out.append("<h2>" + r.getName() + "</h2>");
             out.append("<form action='");
@@ -143,7 +114,6 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
     public String getAddPage(String title) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
@@ -152,15 +122,12 @@ public class HtmlService {
         out.append("' method='POST'>\n");
         out.append("    Enter Car Name: <input type='text' name='name'></br>\n");
         out.append("    Enter Description: <input type='text' name='description'></br>\n");
-     //   out.append("    Enter Type: <input type='number' name='type'></br>\n");
         out.append("    Select type: <select name='type' >");
         out.append("         <option value=1> SEDAN </option>");
         out.append("         <option value=2> HATCHBACK</option>");
         out.append("         <option value=3> CROSSOVER </option> ");
         out.append("         </select>");
-
         out.append("    Enter Price: <input type='number'  name='price'></br>");
-
         out.append("    Enter Picture link: <input type='text' name='picture'></br>\n");
         out.append("    <input type='submit' value='Add Car'>\n");
         out.append("</form>");
@@ -172,7 +139,6 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
     public String getAuthPage(String title) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
@@ -211,7 +177,6 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
     private String getHead(String title) {
         StringBuilder out = new StringBuilder();
         out.append("<html><head><title>");
@@ -224,11 +189,9 @@ public class HtmlService {
         out.append("</head><body>");
         return out.toString();
     }
-
-    private String getEnd() {
+   private String getEnd() {
         return "</body></html>";
     }
-
     public String getDetailPage(String title, Car c) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));

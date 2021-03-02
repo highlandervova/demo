@@ -7,11 +7,11 @@
     <bean id="userService" class="service.UserService"/>
    <bean id="htmlService" class="service.HtmlService"/>
     <bean id="optionService" class="service.OptionService"/>
-   <!-- <bean id="carService" class="service.CarService"/> -->
+  <!--  <bean id="carService" class="service.CarService"/>-->
     <bean id="validationService" class="service.ValidationService"/>
    <bean id="cardao" class="dao.HibernateCarDao"/>
    <!-- <bean id="optionDao" class="dao.HibernateOptionDao"/> -->
-    <!--<bean id="userDao" class="dao.UserDaoImpl"/> -->
-   <!--<bean id="carOptionDao" class="dao.CarOptionDaoImpl"/> -->
+    <!--<bean id="userDao" class="dao.UserDaoImpl"/>-->
+    <bean id="carOptionDao" class="dao.CarOptionDaoImpl"/>
 
 </beans>

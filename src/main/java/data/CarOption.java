@@ -40,7 +40,7 @@ public class CarOption implements Serializable {
   //          inverseJoinColumns =  @JoinColumn(name = "car_id"))
     private String carId;
 
-  @Id
+
   @Column(name="option_id")
  //   (mappedBy="option")
    // @OrderBy("id")

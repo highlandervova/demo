@@ -24,7 +24,6 @@ public class CarService {
                 type != null && type >= 1 && type <= 3 &&
                 price != null & price > 0;
     }
-
     public Car addNewCar(String name, String desc, Integer type, Integer price, String picture) {
         Car c = new Car(UUID.randomUUID().toString(), name, type, price, desc, picture);
         return carDAO.add(c) ? c : null;

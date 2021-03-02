@@ -20,7 +20,7 @@ public class AddServlet extends HttpServlet {
 
 
     CarService carService = new CarService();
-    //CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
+   // CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
 
 
     HtmlService htmlService = (HtmlService) getBean(SpringBeanName.HTML_SERVICE.getName());

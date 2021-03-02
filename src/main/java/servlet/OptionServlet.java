@@ -30,7 +30,7 @@ public class OptionServlet extends HttpServlet {
     //private OptionService optionService = new OptionService();
 
     private CarService    carService    = new CarService();
-   //CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
+//  CarService carService = (CarService) getBean(SpringBeanName.CAR_SERVICE.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

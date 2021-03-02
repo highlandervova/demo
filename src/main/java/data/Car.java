@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "car")
-@Embeddable
+//@Embeddable
 public class Car implements Serializable {
 
   //  @EmbeddedId
