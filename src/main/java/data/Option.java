@@ -2,15 +2,27 @@ package data;
 
 import enums.OptionColor;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Option {
+
+@Entity
+
+@Table(name = "option")
+//@Embeddable
+public class Option implements Serializable {
+
+    @Id
+ //   @ManyToMany
+ //@JoinTable(name="public.car_option", joinColumns = @JoinColumn(name = "option_id"),
+   //        inverseJoinColumns =  @JoinColumn(name = "id"))
     private String id;
     private String name;
     private int color;
 
     public Option() {
-    }
+          }
 
     public Option(String id, String name, int color) {
         this.id = id;
@@ -42,6 +54,18 @@ public class Option {
         this.color = color;
     }
 
+//    @Override
+//    public String toString() {
+//        String out = "";
+//        String color = OptionColor.getColorNameById(this.color);
+//        out += "Option {" +
+//                ", name='" + this.name + '\'' +
+//                ", color=" + color +
+//                '}';
+//        return out;
+//    }
+
+
     @Override
     public String toString() {
         String out = "";
@@ -61,5 +85,13 @@ public class Option {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, color);
+    }
+
+    public static Option copy(Option o) {
+        Option out = new Option();
+        out.setId(o.getId());
+        out.setName(o.getName());
+        out.setColor(o.getColor());
+        return out;
     }
 }

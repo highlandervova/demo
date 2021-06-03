@@ -2,18 +2,22 @@ package enums;
 
 public enum RequestParameter {
 
-    LOGIN("login"),
-    PASS("pass"),
-    PASS1("pass1"),
-    PASS2("pass2"),
-    PICTURE("picture"),
-    PRICE("price"),
-    DESCRIPTION("description"),
-    TYPE("type"),
-    NAME("name"),
-    ID("id");
+    LOGIN       ("login"),
+    PASS        ("pass"),
+    PASS1       ("pass1"),
+    PASS2       ("pass2"),
+    PICTURE     ("picture"),
+    PRICE       ("price"),
+    DESCRIPTION ("description"),
+    TYPE        ("type"),
+    NAME        ("name"),
+    ID          ("id"),
+    CAR_ID      ("carId"),
+    OPTION_ID   ("optionId"),
+    REMOVE      ("Remove"),
+    ADD         ("AddOptionalForCar");
 
-    private RequestParameter(String value) {
+     private RequestParameter(String value) {
         this.value = value;
     }
 

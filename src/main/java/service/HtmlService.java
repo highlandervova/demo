@@ -4,20 +4,22 @@ import data.Car;
 import data.Option;
 import enums.CarType;
 import enums.RedirectPath;
-
 import java.util.Collection;
-
 public class HtmlService {
-
     public String getMainPage(String title, Collection<Car> cars) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
         out.append("<h1>Car Dealer Shop</h1>");
-        out.append("<table><tr><th>NAME</th><th>TYPE</th><th>PRICE</th><th>DESCRIPTION</th><th>PICTURE</th></tr>");
+        out.append("<table><tr><th>NAME</th><th>TYPE</th><th>PRICE</th><th>DESCRIPTION</th><th>PICTURE</th><th>OPTIONS</th></tr>");
         for (Car c : cars) {
             out.append("<tr><td>");
             out.append(c.getName());
             out.append("</td><td>");
+            out.append("<a href='");
+            out.append(RedirectPath.MAIN_PAGE.getValue());
+            out.append("?type=");
+            out.append(c.getType());
+            out.append("'>");
             switch (c.getType()) {
                 case 1:
                     out.append(CarType.SEDAN.name());
@@ -42,10 +44,15 @@ public class HtmlService {
             out.append(c.getPicture());
             out.append("' alt='No Picture'/></a>");
             out.append("</td><td>");
-            out.append("<h1>Options:</h1>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append("' method='GET'>\n");
+            out.append("    <input type='hidden' name='carId' value='"+c.getId()+"'>");
+            out.append("    <input type='submit' value='Edit options'>\n");
+            out.append("</form>");
             for (Option o : c.getOptions()) {
                 out.append(o.toString());
-                out.append(" ");
+                out.append("<br/>");
                 //todo: 26: options in table;
             }
             out.append("</td></tr>");
@@ -64,7 +71,49 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
+    public String getOptionPage
+            (String title,
+             Collection<Option> availableOptions,
+             Collection<Option> extendedOptions, String carId)
+    {
+        StringBuilder out = new StringBuilder();
+        out.append(getHead(title));
+        out.append("<h1>Available Options:</h1>");
+        for (Option r : availableOptions) {
+            out.append("<h2>" + r.getName() + "</h2>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue() );
+            out.append("' method='POST'>\n");
+            out.append("    <input type='hidden' name='carId'    value='" + carId + "'>");
+            out.append("    <input type='hidden' name='optionId' value='" + r.getId() + "'>");
+            out.append("    <input type='submit' name='Remove'   value='Remove'>\n");
+            out.append("</form>");
+        }
+        out.append("<h1>Extended Options:");
 
+        for (Option o : extendedOptions) {
+            out.append("<h2>" + o.getName() + "</h2>");
+            out.append("<form action='");
+            out.append(RedirectPath.OPTION_PAGE.getValue());
+            out.append("' method='POST'>\n");
+            out.append("    <input type='hidden' name='carId' value='" + carId + "'>");
+            out.append("    <input type='hidden' name='optionId' value='" + o.getId() + "'>");
+            out.append("    <input type='submit' name='AddOptionalForCar' value='Add'>\n");
+            out.append("</form>");
+        }
+        out.append("<br/>");
+
+        out.append("<br/>");
+        out.append("<br/>");
+        out.append("<form action='");
+        out.append(RedirectPath.MAIN_PAGE.getValue());
+        out.append("' method='GET'>\n");
+        out.append("    <input type='submit' value='To Main Page'>\n");
+        out.append("</form>");
+        out.append(getEnd());
+        out.append(getEnd());
+        return out.toString();
+    }
     public String getAddPage(String title) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
@@ -73,8 +122,12 @@ public class HtmlService {
         out.append("' method='POST'>\n");
         out.append("    Enter Car Name: <input type='text' name='name'></br>\n");
         out.append("    Enter Description: <input type='text' name='description'></br>\n");
-        out.append("    Enter Type: <input type='number' name='type'></br>\n");
-        out.append("    Enter Price: <input type='number' name='price'></br>\n");
+        out.append("    Select type: <select name='type' >");
+        out.append("         <option value=1> SEDAN </option>");
+        out.append("         <option value=2> HATCHBACK</option>");
+        out.append("         <option value=3> CROSSOVER </option> ");
+        out.append("         </select>");
+        out.append("    Enter Price: <input type='number'  name='price'></br>");
         out.append("    Enter Picture link: <input type='text' name='picture'></br>\n");
         out.append("    <input type='submit' value='Add Car'>\n");
         out.append("</form>");
@@ -86,7 +139,6 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
     public String getAuthPage(String title) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));
@@ -125,7 +177,6 @@ public class HtmlService {
         out.append(getEnd());
         return out.toString();
     }
-
     private String getHead(String title) {
         StringBuilder out = new StringBuilder();
         out.append("<html><head><title>");
@@ -138,11 +189,9 @@ public class HtmlService {
         out.append("</head><body>");
         return out.toString();
     }
-
-    private String getEnd() {
+   private String getEnd() {
         return "</body></html>";
     }
-
     public String getDetailPage(String title, Car c) {
         StringBuilder out = new StringBuilder();
         out.append(getHead(title));

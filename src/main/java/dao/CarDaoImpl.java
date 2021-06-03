@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class CarDAO extends PostgreSqlDao {
+public class CarDaoImpl extends PostgreSqlDao implements CarDao {
     public Collection<Car> getAllCars() {
         try (Connection c = getConnection(); Statement st = c.createStatement();) {
             ResultSet rs = st.executeQuery("SELECT * FROM public.car");

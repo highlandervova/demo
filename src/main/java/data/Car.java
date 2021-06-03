@@ -1,11 +1,20 @@
 package data;
 
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.UUID;
 
+@Entity
+@Table(name = "car")
+//@Embeddable
 public class Car implements Serializable {
+
+  //  @EmbeddedId
+  @Id
+  //@JoinTable(name="public.car_option",joinColumns = @JoinColumn(name = "car_id"),
+   //       inverseJoinColumns =  @JoinColumn(name = "id"))
     private String id;
     private String name;
     private int    type;
@@ -13,10 +22,14 @@ public class Car implements Serializable {
     private String description;
     private String picture;
 
+    @Transient
+//
+//    @JoinTable(name="public.car_option",joinColumns = @JoinColumn(name = "car_id"),
+//            inverseJoinColumns =  @JoinColumn(name = "id"))
+   // @ManyToMany (mappedBy="CarOption", cascade=CascadeType.ALL ) //, orphanRemoval=true )
     private Collection<Option> options;
 
     public Car() {
-//        UUID.randomUUID().toString();
     }
 
     public Car(String id, String name, int type, int price, String description, String picture) {
@@ -107,5 +120,23 @@ public class Car implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, type, price, description, picture);
+    }
+
+    public static Car copy(Car c) {
+        Car out = new Car();
+        out.setId(c.getId());
+        out.setName(c.getName());
+        out.setDescription(c.getDescription());
+        out.setPicture(c.getPicture());
+        out.setType(c.getType());
+        out.setPrice(c.getPrice());
+        Collection<Option> opts = new ArrayList<>();
+        if (c.getOptions() != null) {
+            for (Option o : c.getOptions()) {
+                opts.add(Option.copy(o));
+            }
+            out.setOptions(opts);
+        }
+        return out;
     }
 }

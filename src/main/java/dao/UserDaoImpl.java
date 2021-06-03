@@ -6,8 +6,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class UserDAO extends PostgreSqlDao {
+public class UserDaoImpl extends PostgreSqlDao implements UserDao {
 
+    @Override
     public User getByLogin(String login) {
         try (Connection c = getConnection(); Statement st = c.createStatement();) {
 //            st.executeUpdate("CREATE TABLE public.user (id int PRIMARY KEY," +
@@ -25,12 +26,13 @@ public class UserDAO extends PostgreSqlDao {
                         rs.getString("phone"));
             } else return null;
         } catch (Exception e) {
-            System.out.println("Error save user;");
+            System.out.println("Error login user;");
             e.printStackTrace();
             return null;
         }
     }
 
+    @Override
     public boolean add(User u) {
         if (getByLogin(u.getLogin()) != null) {
             return false;
